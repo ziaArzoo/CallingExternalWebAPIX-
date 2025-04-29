@@ -1,0 +1,51 @@
+class WebServSysopService extends SysOperationServiceBase
+{
+    public static str getLink(real _long = 28.61, real _lat = 77.23)
+    {
+        str Primlink = strFmt("https://api.open-meteo.com/v1/forecast?latitude=%1&longitude=%2&current_weather=true", _long, _lat);
+        return  Primlink;
+
+    }
+
+    public void startoperation(WebServSysopContract   _contract)
+    {
+        System.Net.HttpWebRequest request;
+        System.Net.HttpWebResponse response;
+        System.IO.Stream responseStream;
+        System.IO.StreamReader reader;
+        str responseText;
+
+        str link = WebServSysopService::getLink(); 
+        System.Net.WebRequest netRequest = System.Net.WebRequest::create(link);
+        request = netRequest as System.Net.HttpWebRequest;
+        str token  ='';
+        request.set_Method("GET");
+        request.set_ContentType("application/json");
+
+        //header based code
+        System.Net.WebHeaderCollection headers;
+        headers = new System.Net.WebHeaderCollection();
+        headers.Add("Authorization", "Bearer your_token_here");
+
+        // Now set all headers using set_Headers
+        request.set_Headers(headers);
+       //header code finished
+        
+        try
+        {
+            response = request.GetResponse() as System.Net.HttpWebResponse;
+            responseStream = response.GetResponseStream();
+            reader = new System.IO.StreamReader(responseStream);
+            responseText = reader.ReadToEnd();
+            WeatherJsonDeserializerHeader header = FormJsonSerializer::deserializeObject(classNum(WeatherJsonDeserializerHeader), responseText);
+            real zia = header.parmlatitude();
+            info(strFmt("Response: %1   // %2", responseText, zia));
+        }
+        catch (Exception::CLRError)
+        {
+            System.Exception ex = ClrInterop::getLastException();
+            error("Error calling weather API: " + ex.get_Message());
+        }
+    }
+
+}
