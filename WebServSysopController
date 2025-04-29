@@ -1,0 +1,33 @@
+class WebServSysopController extends SysOperationServiceController
+{
+    /// <summary>
+    /// passes the caption to the dialog
+    /// </summary>
+    /// <returns></returns>
+    public ClassDescription caption()
+    {
+        return " welcome";
+    }
+
+    void new()
+    {
+        super(classStr(WebServSysopService), methodStr(WebServSysopService, startoperation), SysOperationExecutionMode::Synchronous);
+    }
+
+    public static WebServSysopController construct()
+    {
+        WebServSysopController controller = new WebServSysopController();
+        controller.parmDialogCaption(" Parameters");
+        controller.parmShowDialog(true);
+        controller.parmShowProgressForm(true);
+        return controller;
+    }
+
+    public static void main(Args    _args)
+    {
+        WebServSysopController controller;
+        controller = WebServSysopController::construct();
+        controller.startOperation();
+    }
+
+}
