@@ -1,0 +1,56 @@
+[DataContractattribute] 
+class WeatherJsonDeserializerLineUnit
+{
+    str             time, interval, temperature,windspeed,
+                    winddirection,is_day,weathercode;
+    
+    [DataMemberAttribute('time')]
+    public str parmtime(str _time = time)
+    {
+        time= _time;
+        return time;
+    }
+
+    [DataMemberAttribute('interval'), SysOperationLabel('interval')]
+    public str parminterval(str _interval= interval)
+    {
+        interval = _interval;
+        return interval;
+    }
+
+    [DataMemberAttribute('temperature'), SysOperationLabel('temperature')]
+    public str parmtemperature(str _temperature= temperature)
+    {
+        temperature = _temperature;
+        return temperature;
+    }
+
+    [DataMemberAttribute('windspeed'), SysOperationLabel('windspeed')]
+    public str parmwindspeed(str _windspeed= windspeed)
+    {
+        windspeed = _windspeed;
+        return windspeed;
+    }
+
+    [DataMemberAttribute('winddirection'), SysOperationLabel('winddirection')]
+    public str parmwinddirection(str _winddirection= winddirection)
+    {
+        winddirection = _winddirection;
+        return winddirection;
+    }
+
+    [DataMemberAttribute('is_day'), SysOperationLabel('is_day')]
+    public str parmis_day(str _is_day= is_day)
+    {
+        is_day = _is_day;
+        return is_day;
+    }
+
+    [DataMemberAttribute('weathercode'), SysOperationLabel('weathercode')]
+    public str parmweathercode(str _weathercode= weathercode)
+    {
+        weathercode = _weathercode;
+        return weathercode;
+    }
+
+}
