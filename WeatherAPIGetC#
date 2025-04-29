@@ -1,0 +1,48 @@
+using System;
+using System.Net.Http;
+
+namespace KWSBoredAPI
+{
+    public class Helper
+    {
+        private static readonly HttpClient client = new HttpClient();
+
+        static Helper()
+        {
+            client.BaseAddress = new Uri("https://api.open-meteo.com/v1/forecast");
+            client.Timeout = TimeSpan.FromSeconds(30); // Set timeout
+        }
+
+        public static string GetActivity(string request = "?latitude=28.61&longitude=77.23&current_weather=true")
+        {
+            try
+            {
+                var response = client.GetAsync(request).Result;
+                string status = $"Status: {(int)response.StatusCode} {response.ReasonPhrase}";
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = response.Content.ReadAsStringAsync().Result;
+                    return $"{status}\nContent:\n{content}";
+                }
+                else
+                {
+                    string errorContent = response.Content.ReadAsStringAsync().Result;
+                    return $"{status}\nError Response:\n{errorContent}";
+                }
+            }
+            catch (HttpRequestException httpEx)
+            {
+                return $"HTTP error: {httpEx.Message}";
+            }
+            catch (AggregateException aggEx)
+            {
+                return $"Aggregate error: {aggEx.InnerException?.Message}";
+            }
+            catch (Exception ex)
+            {
+                return $"Unexpected error: {ex.Message}";
+            }
+        }
+    }
+}
