@@ -1,0 +1,74 @@
+[DataContractattribute]
+class WeatherJsonDeserializerHeader
+{
+    real latitude, longitude, generationtime_ms, utc_offset_seconds, elevation;
+    str                              timezone, timezone_abbreviation;
+    List                             SOLines;
+    WeatherJsonDeserializerLineUnit  CurrentWeatherUnits;
+    WeatherJsonDeserializerLine      CurrentWeather;
+
+
+    [DataMemberAttribute('latitude')]
+    public real parmlatitude(real _latitude = latitude)
+    {
+        latitude = _latitude;
+        return latitude;
+    }
+
+    [DataMemberAttribute('longitude')]
+    public real parmlongitude(real _longitude = longitude)
+    {
+        longitude = _longitude;
+        return longitude;
+    }
+
+    [DataMemberAttribute('generationtime_ms')]
+    public real parmgenerationtime_ms(real _generationtime_ms = generationtime_ms)
+    {
+        generationtime_ms = _generationtime_ms;
+        return generationtime_ms;
+    }
+
+    [DataMemberAttribute('utc_offset_seconds')]
+    public real parmutc_offset_seconds (real _utc_offset_seconds = utc_offset_seconds )
+    {
+        utc_offset_seconds  = _utc_offset_seconds ;
+        return utc_offset_seconds;
+    }
+
+    [DataMemberAttribute('timezone')]
+    public str parmtimezone(str _timezone = timezone)
+    {
+        timezone= _timezone;
+        return timezone;
+    }
+
+    [DataMemberAttribute('timezone_abbreviation'), SysOperationLabel('Time zone Abbr')]
+    public str parmtimezone_abbreviation(str _timezone_abbreviation= timezone_abbreviation)
+    {
+        timezone_abbreviation = _timezone_abbreviation;
+        return timezone_abbreviation;
+    }
+
+    [DataMemberAttribute('elevation')]
+    public real parmelevation(real _elevation= elevation)
+    {
+        elevation= _elevation;
+        return elevation;
+    }
+
+    [DataMemberAttribute('current_weather_units')]
+    public WeatherJsonDeserializerLineUnit parmCurrentWeatherUnits(WeatherJsonDeserializerLineUnit _CurrentWeatherUnits = CurrentWeatherUnits)
+    {
+        CurrentWeatherUnits = _CurrentWeatherUnits;
+        return CurrentWeatherUnits;
+    }
+
+    [DataMemberAttribute('current_weather')]
+    public WeatherJsonDeserializerLine parmCurrentWeather(WeatherJsonDeserializerLine _CurrentWeather = CurrentWeather)
+    {
+        CurrentWeather = _CurrentWeather;
+        return CurrentWeather;
+    }
+
+}
